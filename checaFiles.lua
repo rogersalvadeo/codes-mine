@@ -8,6 +8,9 @@ local function write(mon)
     mon.write("Marquinho é lindo")
 end
 
+
+--teste
+
 write(monitor1)
 write(monitor2)
 write(monitor3)
