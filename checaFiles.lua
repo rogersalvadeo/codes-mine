@@ -6,7 +6,6 @@ local items = {}
 
 
 local function write(mon, x, y, text)
-    mon.clear()
     mon.setCursorPos(x, y)
     mon.write(text)
 end
@@ -39,15 +38,6 @@ local function populateTable()
         end
     end
 end
-
-for key, value in pairs(items) do
-    print(key)
-    print(value)
-end
-
-
---teste
-
 write(monitor1, 1, 1, "marquinhos eh lindo")
 write(monitor2, 1, 1, "marquinhos eh lindo")
 write(monitor3, 1, 1, "marquinhos eh lindo")
@@ -55,14 +45,13 @@ write(monitor3, 1, 1, "marquinhos eh lindo")
 
 local i = 1
 
-
-
-
-
-
-
-
 populateTable()
+
+
+for key, value in pairs(items) do
+    print(key)
+    print(value)
+end
 
 
 for slot, item in pairs(bau.list()) do
