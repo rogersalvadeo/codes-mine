@@ -43,7 +43,6 @@ write(monitor2, 1, 1, "marquinhos eh lindo")
 write(monitor3, 1, 1, "marquinhos eh lindo")
 
 
-local i = 1
 
 populateTable()
 
