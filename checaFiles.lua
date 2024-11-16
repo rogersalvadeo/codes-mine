@@ -1,14 +1,22 @@
 local bau = peripheral.wrap("minecraft:barrel_0")
-local monitor1, monitor2, monitor3 = peripheral.wrap("monitor_3"), peripheral.wrap("monitor_3"),
+local monitor1, monitor2, monitor3 = peripheral.wrap("monitor_0"), peripheral.wrap("monitor_3"),
     peripheral.wrap("monitor_2")
 local items = {}
 local monitores = { monitor1, monitor2, monitor3 }
+
+monitor1.setTextScale(1)
+monitor2.setTextScale(1)
+monitor3.setTextScale(1)
+
 
 
 local function write(mon, x, y, text)
     mon.setCursorPos(x, y)
     mon.write(text)
 end
+
+
+
 
 local function populateTable()
     for i = 1, 27 do
@@ -38,9 +46,7 @@ local function populateTable()
         end
     end
 end
-write(monitor1, 1, 1, "marquinhos eh lindo")
-write(monitor2, 1, 1, "marquinhos eh lindo")
-write(monitor3, 1, 1, "marquinhos eh lindo")
+
 
 
 
@@ -53,6 +59,11 @@ for key, value in pairs(items) do
 end
 
 local function exibirSaporra(lista, monitores)
+    monitor1.clear()
+    monitor2.clear()
+    monitor3.clear()
+
+
     local max = 4
     local index = 1
 
@@ -75,6 +86,10 @@ end
 
 
 
+
+while true do
+    exibirSaporra(items,monitores)
+end
 
 
 
