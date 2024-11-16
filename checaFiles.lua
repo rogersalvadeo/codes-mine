@@ -1,11 +1,30 @@
-local bau = peripheral.wrap("minecratf:barrel_0")
+local bau = peripheral.wrap("minecraft:barrel_0")
 local monitor1,monitor2,monitor3 = peripheral.wrap("monitor_3"), peripheral.wrap("monitor_3"), peripheral.wrap("monitor_2")
+local items = {}
+
 
 
 local function write(mon,x,y,text)
     mon.clear()
     mon.setCursorPos(x,y)
     mon.write(text)
+end
+
+local function populateTable()
+    for i = 1, 27, 1 do
+        local it={}
+
+        local item = bau.getItemDetail(i)
+        it.name = item.displayName
+        it.qtd = item.count
+        items.insert(it)
+    end
+
+end
+
+for key, value in pairs(items) do
+    print(key)
+    print(value)
 end
 
 
@@ -17,6 +36,17 @@ write(monitor3,1,1,"marquinhos eh lindo")
 
 
 local i = 1
+
+
+
+
+
+
+
+
+
+
+
 
 for slot,item in pairs(bau.list()) do
     print(("%d x %s in slot %d"):format(item.count,item.name,slot))
