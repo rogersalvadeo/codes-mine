@@ -2,7 +2,7 @@ local bau = peripheral.wrap("minecraft:barrel_0")
 local monitor1, monitor2, monitor3 = peripheral.wrap("monitor_3"), peripheral.wrap("monitor_3"),
     peripheral.wrap("monitor_2")
 local items = {}
-
+local monitores = { monitor1, monitor2, monitor3 }
 
 
 local function write(mon, x, y, text)
@@ -13,10 +13,10 @@ end
 local function populateTable()
     for i = 1, 27 do
         local item = bau.getItemDetail(i)
-        
+
         if item ~= nil then
             local exists = false
-            
+
             -- Verifique se o item já existe na tabela 'items'
             for _, it in ipairs(items) do
                 if it.name == item.displayName then
@@ -26,7 +26,7 @@ local function populateTable()
                     break
                 end
             end
-            
+
             -- Se o item não foi encontrado, adicione-o à tabela 'items'
             if not exists then
                 local it = {
@@ -51,6 +51,33 @@ for key, value in pairs(items) do
     print(key)
     print(value)
 end
+
+local function exibirSaporra(lista, monitores)
+    local max = 4
+    local index = 1
+
+    for i = 1, #lista, max do
+        if index > #monitores then
+            print("ja foi")
+            break
+        end
+
+        local monitor = monitores[index]
+        for j = 0, max - 1 do
+            local itemIndex = i+j
+            if lista[itemIndex] then
+                write(monitor,1,j+1,lista[itemIndex].name)
+            end
+        end
+        index=index+1
+    end
+end
+
+
+
+
+
+
 
 
 for slot, item in pairs(bau.list()) do
