@@ -86,7 +86,7 @@ end
 
 
 
-
+--teste
 while true do
     exibirSaporra(items,monitores)
 end
