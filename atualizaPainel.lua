@@ -114,9 +114,16 @@ end
 
 
 
+
+
 while true do
-    populaLista()
+    --populaLista()
+    
+    local success, response = pcall(function()
+        populaLista()
+    end)
+    
+        
     exibirSaporra(items,monitores)
+    sleep(1)
 end
-
-
