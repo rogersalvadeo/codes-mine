@@ -1,12 +1,78 @@
-local bau = peripheral.wrap("minecraft:barrel_1")
-local monitor1, monitor2, monitor3 = peripheral.wrap("monitor_0"), peripheral.wrap("monitor_3"),
-    peripheral.wrap("monitor_2")
+local vault = peripheral.wrap("create:item_vault_1")
+ 
 local items = {}
+local monitor1, monitor2, monitor3 = peripheral.wrap("monitor_0"), peripheral.wrap("monitor_3"),peripheral.wrap("monitor_2")
 local monitores = { monitor1, monitor2, monitor3 }
 
 monitor1.setTextScale(1)
 monitor2.setTextScale(1)
 monitor3.setTextScale(1)
+
+
+function update(item)
+ 
+    for key,value in pairs(items) do
+        if value.name==item.name then
+            value.qtd = value.qtd+item.qtd
+        end
+    
+    end
+ 
+end
+ 
+function insert(item)
+--    print("insert")
+--    print(item.name)
+--    print(item.qtd)
+ 
+    table.insert(items,item)
+end
+ 
+ 
+function contains(str,list) 
+    local exist = false
+    for key,value in pairs(list) do
+        if value.name==str then
+            exist = true
+            break
+        end
+    end
+    
+    return exist
+end
+ 
+function populaLista()
+ 
+    for k in pairs(items) do 
+        items[k] = nil
+    end
+ 
+ 
+    for slot,item in pairs(vault.list()) do
+        local it = vault.getItemDetail(slot)
+        local food = {}
+        
+        food.name = it.displayName
+        food.qtd = item.count
+        if contains(food.name,items) then
+            update(food)                  
+        else
+            insert(food)
+        end
+    end
+end
+ 
+
+populaLista()
+ 
+ 
+--for key,value in pairs(items) do
+--    print(value.name)
+--    print(value.qtd)
+--end
+ 
+
+
 
 
 
@@ -18,50 +84,6 @@ end
 
 
 
-local function populateTable()
-    for k in pairs (items) do
-        items [k] = nil
-    end
-
-
-    for i = 1, 27 do
-        local item = bau.getItemDetail(i)
-
-        if item ~= nil then
-            local exists = false
-
-            -- Verifique se o item jÃ¡ existe na tabela 'items'
-            for _, it in ipairs(items) do
-                if it.name == item.displayName then
-                    -- Se o item jÃ¡ existir, adiciona a quantidade
-                    it.qtd = it.qtd + item.count
-                    exists = true
-                    break
-                end
-            end
-
-            -- Se o item nÃ£o foi encontrado, adicione-o Ã  tabela 'items'
-            if not exists then
-                local it = {
-                    name = item.displayName,
-                    qtd = item.count
-                }
-                table.insert(items, it)
-            end
-        end
-    end
-end
-
-
-
-
---populateTable()
-
-
---for key, value in pairs(items) do
---    print(key)
---    print(value)
---end
 
 local function exibirSaporra(lista, monitores)
     monitor1.clear()
@@ -93,21 +115,8 @@ end
 
 
 while true do
-    populateTable()
+    populaLista()
     exibirSaporra(items,monitores)
 end
 
 
-
-
-
-for slot, item in pairs(bau.list()) do
-    --print(("%d x %s in slot %d"):format(item.count, item.name, slot))
-    --if slot < 5 then
-    --    write(monitor1, 1, slot, item.name)
-    --elseif slot < 9 then
-    --    write(monitor2, 1, slot - 4, item.name)
-    --elseif slot < 11 then
-    --    write(monitor3, 1, slot - 8, item.name)
-    --end
-end
